@@ -35,7 +35,7 @@ public class NPC : MonoBehaviour
         FindObjectOfType<DialogueSystem>().EnterRangeofNPC();
         if ((other.gameObject.tag == "Player") && Input.GetKeyDown(KeyCode.F))
         {
-            this.gameObject.GetComponent<NPC>().enabled.true;
+            //this.gameObject.GetComponent<NPC>().enabled.true;
             dialogueSystem.Names = Name;
             dialogueSystem.dialogueLines = sentences;
             FindObjectOfType<DialogueSystem>().NPCName();

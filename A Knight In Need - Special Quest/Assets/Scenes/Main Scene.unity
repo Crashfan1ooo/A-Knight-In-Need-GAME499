@@ -4131,8 +4131,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b938d572666a3a4bb5e93f1bbe652dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chatBackground: {fileID: 1108777252}
-  npcCharacter: {fileID: 1748398673}
+  nameText: {fileID: 0}
+  dialogueText: {fileID: 0}
+  dialogueGUI: {fileID: 619388495}
+  dialogueBoxGUI: {fileID: 1134592725}
+  letterDelay: 0.1
+  letterMultiplier: 0.5
+  dialogueInput: 102
+  Names: 
+  dialogueLines: []
+  letterisMultiplied: 0
+  dialogueActive: 0
+  dialogueEnded: 0
+  outofRange: 1
+  audioClip: {fileID: 0}
 --- !u!82 &1046489884
 AudioSource:
   m_ObjectHideFlags: 0
