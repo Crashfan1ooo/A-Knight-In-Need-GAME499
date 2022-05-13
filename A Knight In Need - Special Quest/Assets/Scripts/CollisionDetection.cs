@@ -11,8 +11,8 @@ public class CollisionDetection : MonoBehaviour
     {
         if(other.tag == "Enemy" && weaponC.isAttacking)
         {
-            Debug.Log(other.name);
-            Debug.Log("Enemy is being hit");
+            
+            
         }
     }
 }

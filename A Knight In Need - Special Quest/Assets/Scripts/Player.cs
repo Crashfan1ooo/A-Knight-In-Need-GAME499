@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
-            Debug.Log("Moving");
+            
         }
 
         Vector3 movePos = transform.right * x + transform.forward * y;

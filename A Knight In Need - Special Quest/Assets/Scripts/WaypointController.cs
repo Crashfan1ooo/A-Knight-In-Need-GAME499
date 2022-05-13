@@ -34,6 +34,7 @@ public class WaypointController : MonoBehaviour
     public WeaponController swordWC;  //This is for a reference to the sword
     public Player playerModel; //Reference to the player itself
     public bool isCoolingDown = false;
+    
 
     private void Start()
     {
@@ -129,7 +130,7 @@ public class WaypointController : MonoBehaviour
         if (other.tag == "Sword" && swordWC.isAttacking == true)
         {
             enemyHitPoints--;
-            Debug.Log("taking damage...");
+            Debug.Log("Enemy taking damage...");
         }
 
         if(other.tag == "Player")
@@ -138,7 +139,10 @@ public class WaypointController : MonoBehaviour
             {
                 playerModel.Health = playerModel.Health - 1;
                 isCoolingDown = true;
+                Debug.Log("Player taking damage...");
                 StartCoroutine(AttackCoolDown(3.0f));
+                
+                
             }
         }
     }
