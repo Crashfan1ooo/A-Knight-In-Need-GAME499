@@ -31,7 +31,9 @@ public class WaypointController : MonoBehaviour
 
 
     public int enemyHitPoints = 15;  //This is for when the sword collides, damage is done in increments of 3
-    public WeaponController swordWC;  //This is for a reference to the player
+    public WeaponController swordWC;  //This is for a reference to the sword
+    public Player playerModel; //Reference to the player itself
+    public bool isCoolingDown = false;
 
     private void Start()
     {
@@ -65,7 +67,7 @@ public class WaypointController : MonoBehaviour
         if (chaseDistance <= lookRadius)
         {
             transform.position = Vector3.MoveTowards(transform.position, playerTarget.position, movementSpeed * Time.deltaTime);
-            Debug.Log("Player is within Range, following the player with a distance of " + chaseDistance);
+            //Debug.Log("Player is within Range, following the player with a distance of " + chaseDistance);
             playerDetected = true;
 
         }
@@ -129,5 +131,21 @@ public class WaypointController : MonoBehaviour
             enemyHitPoints--;
             Debug.Log("taking damage...");
         }
+
+        if(other.tag == "Player")
+        {
+            if(isCoolingDown == false)
+            {
+                playerModel.Health = playerModel.Health - 1;
+                isCoolingDown = true;
+                StartCoroutine(AttackCoolDown(3.0f));
+            }
+        }
+    }
+
+    private IEnumerator AttackCoolDown(float waittime)
+    {
+        yield return new WaitForSeconds(waittime);
+        isCoolingDown = false;
     }
 }

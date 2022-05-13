@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
 
     [HideInInspector] public bool grounded;
 
+    public int Health = 5;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +44,9 @@ public class Player : MonoBehaviour
 
         rb.velocity = newMovePos;
 
-
+        if (Health <= 0)
+        {
+            Debug.Log("You are dead!");
+        }
     }
 }
