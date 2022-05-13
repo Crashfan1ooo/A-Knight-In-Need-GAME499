@@ -34,7 +34,9 @@ public class WaypointController : MonoBehaviour
     public WeaponController swordWC;  //This is for a reference to the sword
     public Player playerModel; //Reference to the player itself
     public bool isCoolingDown = false;
-    
+
+
+    private NavMeshAgent navMeshAgent;
 
     private void Start()
     {
@@ -45,35 +47,48 @@ public class WaypointController : MonoBehaviour
 
         playerTarget = GameObject.FindGameObjectWithTag("Player").transform;
 
+        navMeshAgent = GetComponent<NavMeshAgent>();
 
     }
 
     private void Update()
     {
         float rotationStep = rotationSpeed * Time.deltaTime;
+        //this is the float variable used for the rotation speed once the enemy gets to a waypoint
 
         Vector3 directionToTarget = targetWaypoint.position - transform.position;
         Quaternion rotationToTarget = Quaternion.LookRotation(directionToTarget);
+        //this faces the enemy to the taret waypoint
 
         transform.rotation = Quaternion.Slerp(transform.rotation, rotationToTarget, rotationStep);
         //This rotates the enemy as they move towards the next waypoint. Slerp allows for a smoother rotation, makes it so the rotation doesnt happen instantly. Uses the Rotation step variable, so you can change how fast the rotation happens.
 
         Debug.DrawRay(transform.position, transform.forward * 25f, Color.green, 0f);
         Debug.DrawRay(transform.position, directionToTarget, Color.red, 0f);
-
+        //this is just some gizmos to show, within the inspector, which direction the enemy is looking
         
         chaseDistance = Vector3.Distance(playerTarget.position, transform.position);
+        //this makes it so the chase distance is returning the distance between the player and the enemy
 
 
         if (chaseDistance <= lookRadius)
         {
-            transform.position = Vector3.MoveTowards(transform.position, playerTarget.position, movementSpeed * Time.deltaTime);
-            //Debug.Log("Player is within Range, following the player with a distance of " + chaseDistance);
             playerDetected = true;
+            //transform.position = Vector3.MoveTowards(transform.position, playerTarget.position, movementSpeed * Time.deltaTime);
+            //Debug.Log("Player is within Range, following the player with a distance of " + chaseDistance);
+            //these were previously used to move the enemy towards the target but since then we have upgraded to using a navmesh agent for directional input
+            
+            
+            navMeshAgent.destination = playerTarget.position;
+            
+            
 
         }
         else
+        {
             playerDetected = false;
+        }
+        
 
 
 
@@ -85,7 +100,10 @@ public class WaypointController : MonoBehaviour
         CheckDistanceToWaypoint(distance);
         if (playerDetected == false)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, movementStep);
+            //transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, movementStep);
+            //transform.position = navMeshAgent.destination(transform.position, targetWaypoint.position, movementStep);
+            navMeshAgent.destination = targetWaypoint.position;
+            Debug.Log("Moving to the next Destination");
         }
 
         
@@ -95,6 +113,8 @@ public class WaypointController : MonoBehaviour
             Debug.Log("Enemy dead af");
         }
     }
+
+    
 
     void CheckDistanceToWaypoint(float currentDistance)
     {
