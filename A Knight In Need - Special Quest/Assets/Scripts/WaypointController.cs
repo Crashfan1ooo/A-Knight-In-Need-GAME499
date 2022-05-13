@@ -30,7 +30,7 @@ public class WaypointController : MonoBehaviour
     private float chaseDistance;
 
 
-    public int enemyHitPoints = 15;  //This is for when the sword collides
+    public int enemyHitPoints = 15;  //This is for when the sword collides, damage is done in increments of 3
     public WeaponController swordWC;  //This is for a reference to the player
 
     private void Start()
