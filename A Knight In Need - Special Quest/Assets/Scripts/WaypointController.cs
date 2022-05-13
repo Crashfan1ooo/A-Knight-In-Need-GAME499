@@ -29,6 +29,10 @@ public class WaypointController : MonoBehaviour
     private Transform playerTarget;
     private float chaseDistance;
 
+
+    public int enemyHitPoints = 15;  //This is for when the sword collides
+    public WeaponController swordWC;  //This is for a reference to the player
+
     private void Start()
     {
         lastWaypointIndex = waypoints.Count - 1;
@@ -81,8 +85,12 @@ public class WaypointController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, movementStep);
         }
 
-
-
+        
+        if(enemyHitPoints <= 0)
+        {
+            Destroy(gameObject);
+            Debug.Log("Enemy dead af");
+        }
     }
 
     void CheckDistanceToWaypoint(float currentDistance)
@@ -112,5 +120,14 @@ public class WaypointController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Sword" && swordWC.isAttacking == true)
+        {
+            enemyHitPoints--;
+            Debug.Log("taking damage...");
+        }
     }
 }
