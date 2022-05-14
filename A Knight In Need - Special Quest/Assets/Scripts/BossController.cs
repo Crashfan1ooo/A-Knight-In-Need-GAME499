@@ -26,7 +26,7 @@ public class BossController : MonoBehaviour
         //this will continously find gameobjects that are tagged with Enemy within the scene and update the array. 
         minionCount = minionEnemies.Length;
         //this will return the amount of enemies within the array to a useable integer value that we use for conditional statements
-        if (minionCount <= 1)
+        if (minionCount <= 0)
         {
             bossEnemy.SetActive(true);
         }
