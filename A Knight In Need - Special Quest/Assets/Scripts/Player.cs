@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -17,11 +18,15 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool grounded;
 
     public int Health = 5;
+    public Text textbox;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        //textbox = GetComponent<Text>();
+        
     }
 
     // Update is called once per frame
@@ -34,8 +39,10 @@ public class Player : MonoBehaviour
 
         grounded = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), 0.4f, layerMask);
 
+        
+
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
-        {
+        { 
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
             
         }
@@ -50,5 +57,8 @@ public class Player : MonoBehaviour
             Debug.Log("You are dead!");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+        textbox.text = "Health:" + Health;
+       
     }
 }
