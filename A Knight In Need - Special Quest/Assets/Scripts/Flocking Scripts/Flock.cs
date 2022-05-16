@@ -59,6 +59,7 @@ public class Flock : MonoBehaviour
                 Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)),
                 transform
                 );
+            //This is the data for all of the "NEW" agent prefabs that are going to instatiated
 
             newAgent.name = "Agent " + i;
             agents.Add(newAgent);
